@@ -1,0 +1,15 @@
+body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+}
+
+canvas {
+    position: absolute;
+}
+
+p {
+    margin-right: 30px;
+    font-size: 20px;
+}
