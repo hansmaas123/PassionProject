@@ -1,17 +1,12 @@
-const $expressionText = document.querySelector('.expression-text');
 const $video = document.querySelector('.video');
 
 let canvas = null;
-lastExpression = null;
+let lastExpression = null;
 
 const videoPlayer = async () => {
   const stream = await navigator.mediaDevices.getUserMedia({ video: true });
   $video.srcObject = stream;
   $video.play();
-};
-
-const updateExpressionText = (expression) => {
-  $expressionText.innerText = expression;
 };
 
 const trackExpressions = async () => {
@@ -46,7 +41,6 @@ const trackExpressions = async () => {
 
     if (maxValue > 0.5 && maxExpression !== lastExpression) {
       lastExpression = maxExpression;
-      updateExpressionText(maxExpression);
 
       let value = "0";
       if (maxExpression === "happy") {
