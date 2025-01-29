@@ -48,7 +48,17 @@ const trackExpressions = async () => {
       lastExpression = maxExpression;
       updateExpressionText(maxExpression);
 
-      
+      let value = "0";
+      if (maxExpression === "happy") {
+        value = "1";
+      } else if (maxExpression === "angry") {
+        value = "2";
+      } else if (maxExpression === "sad") {
+        value = "3";
+      } else if (maxExpression === "surprised") {
+        value = "4";
+      }
+      sendWebSocketData(value); 
     }
   }
 };
@@ -58,6 +68,7 @@ let ws = new WebSocket('ws://' + host + ':8080');
 
 const setupWebSocket = () => {
   ws.onopen = () => console.log("WebSocket Connected");
+  ws.onmessage = (event) => console.log("Received:", event.data);
   ws.onerror = (error) => console.error("Error:", error);
   ws.onclose = () => {
     console.warn("WebSocket Closed");
@@ -65,6 +76,14 @@ const setupWebSocket = () => {
   };
 };
 
+const sendWebSocketData = (message) => {
+  if (ws.readyState === WebSocket.OPEN) {
+    ws.send(message);
+    console.log(`${message}`);
+  } else {
+    console.warn("WebSocket not connected");
+  }
+};
 
 const init = async () => {
   setupWebSocket();
